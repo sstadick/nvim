@@ -16,6 +16,34 @@ vim.filetype.add({ extension = { mojo = "mojo" } })
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>co", ":copen<CR>", { silent = true })
 vim.keymap.set("n", "<leader>cx", ":cclose<CR>", { silent = true })
+
+-- Splits: move between
+vim.keymap.set('n', '<leader>h', '<C-w>h')
+vim.keymap.set('n', '<leader>j', '<C-w>j')
+vim.keymap.set('n', '<leader>k', '<C-w>k')
+vim.keymap.set('n', '<leader>l', '<C-w>l')
+
+-- Splits: create
+vim.keymap.set('n', '<leader>v', ':vsp<CR>')
+vim.keymap.set('n', '<leader>s', ':sp<CR>')
+
+-- Splits: resize
+vim.keymap.set('n', '<leader><Up>',    ':resize +5<CR>')
+vim.keymap.set('n', '<leader><Down>',  ':resize -5<CR>')
+vim.keymap.set('n', '<leader><Left>',  ':vertical resize +5<CR>')
+vim.keymap.set('n', '<leader><Right>', ':vertical resize -5<CR>')
+vim.keymap.set('n', '<leader>=', '<C-w>=')
+
+-- LSP
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gr', vim.lsp.buf.references)
+vim.keymap.set('n', 'K',  vim.lsp.buf.hover)
+
+-- Buffers
+vim.keymap.set('n', '<Tab>',    ':bn<CR>')
+vim.keymap.set('n', '<S-Tab>',  ':bp<CR>')
+vim.keymap.set('n', '<leader>d', ':bd<CR>')
+
 ------------------------
 -- Plugins
 ------------------------
@@ -24,6 +52,12 @@ vim.pack.add({
   "https://github.com/nvim-telescope/telescope.nvim",
   "https://github.com/loctvl842/monokai-pro.nvim"
 })
+
+vim.opt.rtp:append(vim.fn.expand("~/dev/sherpa"))
+vim.cmd("runtime plugin/sherpa.lua")
+require("sherpa").setup()
+
+
 require("telescope").setup({})
 vim.keymap.set("n", "<leader>ff", function()
   require("telescope.builtin").find_files({
