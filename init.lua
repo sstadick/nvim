@@ -14,6 +14,8 @@ vim.filetype.add({ extension = { mojo = "mojo" } })
 -- Keymaps
 ------------------------
 vim.g.mapleader = " "
+
+-- Quickfix list
 vim.keymap.set("n", "<leader>co", ":copen<CR>", { silent = true })
 vim.keymap.set("n", "<leader>cx", ":cclose<CR>", { silent = true })
 
@@ -39,6 +41,22 @@ vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references)
 vim.keymap.set('n', 'K',  vim.lsp.buf.hover)
 
+-- Sherpa
+vim.keymap.set('n', '<leader>sw', ':SherpaWork<CR>')
+vim.keymap.set('n', '<leader>ss', ':SherpaSearch<CR>')
+vim.keymap.set('n', '<leader>sr', ':SherpaReview<CR>')
+vim.keymap.set('v', '<leader>sr', ':SherpaReview<CR>')
+vim.keymap.set('v', '<leader>sp', ':SherpaPatch<CR>')
+vim.keymap.set('n', '<leader>sp', ':SherpaPatch<CR>')
+vim.keymap.set('v', '<leader>sc', ':SherpaComment<CR>')
+vim.keymap.set('n', '<leader>sc', ':SherpaComment<CR>')
+vim.keymap.set('n', '<leader>sn', ':SherpaNext<CR>')
+vim.keymap.set('n', '<leader>sN', ':SherpaPrev<CR>')
+vim.keymap.set('n', '<leader>sl', ':SherpaLog<CR>')
+vim.keymap.set('n', '<leader>sS', ':SherpaSearches<CR>')
+vim.keymap.set('n', '<leader>sC', ':SherpaComments<CR>')
+vim.keymap.set('n', '<leader>si', ':SherpaReviewItems<CR>')
+
 -- Buffers
 vim.keymap.set('n', '<Tab>',    ':bn<CR>')
 vim.keymap.set('n', '<S-Tab>',  ':bp<CR>')
@@ -50,13 +68,20 @@ vim.keymap.set('n', '<leader>d', ':bd<CR>')
 vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
-  "https://github.com/loctvl842/monokai-pro.nvim"
+  "https://github.com/loctvl842/monokai-pro.nvim",
+  -- For Markdown Render
+  "https://github.com/nvim-mini/mini.icons",
+  "https://github.com/MeanderingProgrammer/render-markdown.nvim"
 })
 
 vim.opt.rtp:append(vim.fn.expand("~/dev/sherpa"))
 vim.cmd("runtime plugin/sherpa.lua")
 require("sherpa").setup()
 
+vim.treesitter.language.add("markdown")
+vim.treesitter.language.add("markdown_inline")
+vim.treesitter.language.add("html")
+require('render-markdown').setup({})
 
 require("telescope").setup({})
 vim.keymap.set("n", "<leader>ff", function()
